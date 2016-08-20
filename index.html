@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>移动端组件库</title>
+
+  <link rel="stylesheet" href="dist/dialog.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    ul li {
+      list-style: none;
+      padding: 10px;
+      border-bottom: 1px solid #e8ebf0;
+    }
+  </style>
+
+</head>
+<body>
+  <ul>
+    <li class="test_panel">面板组件</li>
+    <li class="test_dialog">弹出框组件</li>
+  </ul>
+
+  <script src="dist/dialog.min.js"></script>
+  <script>
+
+    var test_panel = document.querySelector('.test_panel');
+    var test_dialog = document.querySelector('.test_dialog');
+    var dialog = new Dialog({autoRender : true,});
+
+    test_panel.addEventListener('click', function(){
+    }, false);
+
+
+    test_dialog.addEventListener('click', function(){
+        dialog.open();
+    }, false);
+
+  </script>
+</body>
+</html>

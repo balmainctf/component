@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>dialog</title>
+  <link rel="stylesheet" href="../dist/dialog.min.css">
+  <style>
+    button.openBtn {
+      outline: 0;
+      background: #fff;
+      border: 1px solid #e8ebf0;
+      padding: 6px 12px;
+      margin: 20px auto;
+      display: block;
+    }
+
+    .dialog_backdrop {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      opacity: .3;
+      background: #000;
+      z-index: 1001;
+    }
+
+    .dialog_wrapper {
+      position: fixed;
+      margin: auto;
+      width: 260px;
+      height: 140px;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background: #fff;
+      z-index: 1002;
+
+      border: 1px solid #e8ebf0;
+      border-radius: 4px;
+    }
+    .dialog_title {
+      margin: 10px 0 4px 0;
+      text-align: center;
+      font-size: 18px;
+    }
+    .dialog_container {
+      font-size: 14px;
+      padding: 0 10px;
+      line-height: 1.3;
+      overflow: scroll;
+    }
+    .dialog_btn {
+      position: absolute;
+      bottom: 4px;
+      outline: none;
+      border: 1px solid rgb(234, 74, 51);
+      border-radius: 4px;
+      padding: 6px 20px;
+      background: inherit;
+      color: rgb(234, 74, 51);
+      font-size: 14px;
+
+      margin-left: 50%;
+      transform: translateX(-50%);
+    }
+  </style>
+</head>
+<body>
+
+  <button class="openBtn">点我打开弹出框</button>
+  <p style="margin-top: 700px;">测试</p>
+
+  <script src="../dist/dialog.min.js"></script>
+
+  <script>
+    (function(){
+      var test = document.querySelector('.openBtn');
+      var copy_list = document.querySelector('.copy_list');
+      var test_add = document.querySelector('.test_add');
+
+      var options = {
+        title : "标题",
+
+        //内容区域高度，可以取数值 || "auto"
+        height : '320',
+
+        autoRender : true,
+
+        // 点击遮罩时是否关闭面板，默认为 false
+        // closeOnMaskClicked : true,
+
+        //遮罩被点击时的句柄
+        onMaskClick: function() {
+          console.log('点击背景事件');
+          // return false;    // 返回false 阻止背景快速关闭
+        },
+
+        // 初始化回调
+        onInit: function(){ console.log('onInit'); },
+
+        // 渲染页面回调
+        onRender: function(){ console.log('onRender'); },
+
+        // 移除dom回调
+        onDestory: function(){ console.log('onDestory'); },
+
+        // 打开时回调
+        onOpen: function(){ console.log('onOpen'); },
+
+        // 关闭时回调
+        onClose: function(){ console.log('onClose'); },
+
+        // 渲染父节点，默认为 document.body
+        // renderTo : document.body,
+
+        // 按钮组，限制为两个按钮
+        button : {
+          name : '我知道啦',
+          disabled : false,
+          handel : function() {
+            console.log('取消');
+          }
+        },
+
+        // 插入内容框
+        // 可以为html片段或dom节点
+        // "<div></div>"||document.getElementById("content")
+        content : '<div>测试内容测试内容测试内容测试内容</div>',
+
+        // content:test_add
+      };
+
+      var dialog = new Dialog(options);
+      test.addEventListener('click', function(){
+          dialog.open();
+          // dialog01.open();
+          setTimeout(function() {
+            // dialog02.open();
+
+            // dialog.setTitle('Hello world');
+            // console.log(dialog.getTitle());
+
+            // dialog.close();
+            // dialog.destory();
+
+            // dialog.setContent('<div style="height:400px;">测试content</div>');
+
+            // console.log(dialog.getContentEle());
+
+            // dialog.setContent(test_add);
+
+          }, 1000);
+
+      }, false);
+
+
+    })();
+  </script>
+</body>
+</html>
