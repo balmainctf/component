@@ -7,6 +7,7 @@
   <title>移动端组件库</title>
 
   <link rel="stylesheet" href="dist/dialog.min.css">
+  <link rel="stylesheet" href="dist/toast.min.css">
   <style>
     * {
       margin: 0;
@@ -24,14 +25,40 @@
   <ul>
     <li class="test_panel">面板组件</li>
     <li class="test_dialog">弹出框组件</li>
+    <li class="test_toast">Toast组件</li>
   </ul>
 
   <script src="dist/dialog.min.js"></script>
+  <script src="dist/toast.min.js"></script>
   <script>
 
     var test_panel = document.querySelector('.test_panel');
     var test_dialog = document.querySelector('.test_dialog');
-    var dialog = new Dialog({autoRender : true,});
+    var test_toast = document.querySelector('.test_toast');
+
+    var dialog = new Dialog({
+      autoRender : true,
+      buttonGroup : {
+        cancel : {
+          name : '取消',
+          disabled: false,
+          handel: function(){
+            // console.log('取消');
+            // return false;
+          }
+        },
+        enter : {
+          name : '确定',
+          disabled: false,
+          handel: function(){
+            // console.log('确定');
+            // return false;
+          }
+        }
+      }
+    });
+
+    var toast = new Toast();
 
     test_panel.addEventListener('click', function(){
     }, false);
@@ -39,6 +66,10 @@
 
     test_dialog.addEventListener('click', function(){
         dialog.open();
+    }, false);
+
+    test_toast.addEventListener('click', function(){
+        toast.open();
     }, false);
 
   </script>
