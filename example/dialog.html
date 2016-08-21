@@ -118,11 +118,23 @@
         // renderTo : document.body,
 
         // 按钮组，限制为两个按钮
-        button : {
-          name : '我知道啦',
-          disabled : false,
-          handel : function() {
-            console.log('取消');
+        // btn
+        buttonGroup : {
+          cancel : {
+            name : '取消',
+            disabled: false,
+            handel(){
+              // console.log('取消');
+              // return false;
+            }
+          },
+          enter : {
+            name : '确定',
+            disabled: false,
+            handel(){
+              // console.log('确定');
+              // return false;
+            }
           }
         },
 
