@@ -18,7 +18,8 @@
          <div class="dialog_container">
            该商品仅限北京地区可服务，与您当前定位上海不符。关注58到家公众号，了解更多优惠吧
          </div>
-         <button class="dialog_btn">我知道了</button>
+				 <div class="dialog_btnGroup">
+				 </div>
         </div>`,
 
       title : "温馨提示",
@@ -29,8 +30,8 @@
 
 			autoRender : false,
 
-      //内容区域高度， 可以取 数值 || "auto"
-      height : 320,
+      //内容区域高度， 可以取 数值(320) || "auto"
+      height : 'auto',
 
       //点击遮罩时是否关闭面板
       closeOnMaskClicked : false,
@@ -56,13 +57,24 @@
       // 渲染父节点
       renderTo : document.body,
 
-      button : {
-          name : '我知道啦',
-          // disabled: false,
+			// btn
+      buttonGroup : {
+        cancel : {
+          name : '取消',
+          disabled: false,
           handel(){
-            console.log('点击button');
+            console.log('取消');
             // return false;
           }
+        },
+        enter : {
+          name : '确定',
+          disabled: false,
+          handel(){
+            console.log('确定');
+            // return false;
+          }
+        }
       },
     }
 
@@ -95,9 +107,17 @@
       con_wrap.style.height = options.height === 'auto' ?
         'auto' : options.height + 'px';
 
-      // 设置btn
-      ele.querySelector('.dialog_btn').innerHTML = options.button.name;
-
+			// 设置btn
+			let btnGroup = options.buttonGroup;
+			let dialogBtnGroup =  ele.querySelector('.dialog_btnGroup');
+			for(let key in btnGroup) {
+				let btn = document.createElement('button');
+				btn.className = btnGroup[key].disabled === true ?  `dialog_btn disabled panel_btn_${key}`
+					: `dialog_btn panel_btn_${key}`;
+				btn.setAttribute('data-key', key);
+				btn.innerHTML = btnGroup[key].name;
+				dialogBtnGroup.appendChild(btn);
+			}
 
       // 设置外部容器
       ele.style.display = 'none';
@@ -123,7 +143,7 @@
 			eleCon.dialog_wrapper = ele.querySelector('.dialog_wrapper');
 			eleCon.dialog_title = ele.querySelector('.dialog_title');
 			eleCon.dialog_container = ele.querySelector('.dialog_container');
-			eleCon.dialog_btn = ele.querySelector('.dialog_btn');
+			eleCon.dialog_btnGroup = ele.querySelector('.dialog_btnGroup');
     };
 
     function bindListener() {
@@ -152,12 +172,20 @@
 			// });
 
       // 点击按钮
-      addEventHandler(eleCon.dialog_btn, 'touchstart', (ev) => {
-				// cosole.log(123);
-        let ret = typeof options.button.handel === 'function' ?
-          options.button.handel.apply(this, arguments) : true;
-        ret !== false ? close() : '';
-        stopDefault(ev);
+		  dalegateEventHandler(eleCon.dialog_btnGroup, 'button', 'touchstart', (ev) => {
+				// let ev = event.target || event.srcElement;
+				if(ev.className.indexOf('disabled') !== -1) return false;
+
+        let btnGroup = options.buttonGroup;
+        let elekey = ev.getAttribute('data-key');
+
+        for(let key in btnGroup) {
+          if(key !== elekey) continue;
+
+          let ret = typeof btnGroup[key].handel === 'function' ?
+            btnGroup[key].handel.apply(this) : true;
+          ret !== false ? close() : '';
+        }
       });
 
     };
