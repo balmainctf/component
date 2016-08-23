@@ -1,36 +1,39 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>touch事件</title>
+  <title>Touch页面</title>
   <style>
-    .test {
-      width: 100px;
-      height: 100px;
-      background: rgba(0, 0, 0, .5);
-    }
-  </style>
+		h1 {
+			font-family : "Microsoft Yahei";
+			cursor : pointer;
+			text-align: center;
+			margin-top: 3em;
+			-webkit-user-select : none;
+		}
+	</style>
+  <script src="//cdn.bootcss.com/seajs/3.0.2/sea.js"></script>
 </head>
 <body>
+	<h1 id="h1">Hold To Change Color</h1>
+	<script>
 
-<div class="test"></div>
+		function getRandomColor() {
+			var letters = '0123456789ABCDEF'.split('');
+			var color = '#';
+			for (var i = 0; i < 6; i++ ) {
+				color += letters[Math.floor(Math.random() * 16)];
+			}
+			return color;
+		}
 
-<script src="../dist/touch.min.js"></script>
-<script>
-  var test = document.querySelector('.test');
-  var touch = new Touch(test);
-
-  touch.on('tap', function(e){
-    console.log('触发了tap事件');
-  });
-
-  setTimeout(function(){
-    touch.tap();
-  },1000);
-
-</script>
-
+		seajs.use("../dist/touch.min", function(touch){
+			// touch.on("#h1", 'hold', function(){
+			// 	this.style.color = getRandomColor();
+			// });
+		});
+	</script>
 </body>
 </html>

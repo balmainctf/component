@@ -8,6 +8,7 @@ const concat = require('gulp-concat');
 const cssmin = require('gulp-minify-css');
 const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
+const connect = require('gulp-connect');
 
 const dirs = {
 	script: 'script',
@@ -43,4 +44,12 @@ gulp.task('watch', () => {
 	gulp.watch(distPath.style, [cssmin]);
 });
 
-gulp.task('default', ['babel', 'cssmin', 'watch']);
+gulp.task('connect', function () {
+  connect.server({
+    root: '.',
+		port: 8888,
+    livereload: true
+  });
+});
+
+gulp.task('default', ['babel', 'cssmin', 'connect', 'watch']);
