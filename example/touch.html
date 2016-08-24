@@ -14,7 +14,7 @@
 			-webkit-user-select : none;
 		}
 	</style>
-  <script src="//cdn.bootcss.com/seajs/3.0.2/sea.js"></script>
+  <script src="http://cdn.bootcss.com/seajs/3.0.2/sea.js"></script>
 </head>
 <body>
 	<h1 id="h1">Hold To Change Color</h1>
@@ -30,10 +30,25 @@
 		}
 
 		seajs.use("../dist/touch.min", function(touch){
-			// touch.on("#h1", 'hold', function(){
-			// 	this.style.color = getRandomColor();
-			// });
+			touch.on("#h1", 'hold', function(){
+				document.querySelector('#h1').style.color = getRandomColor();
+			});
+
+
+      function handel() {
+        requestAnimationFrame(function(){
+          touch.triggerSync('hold');
+
+          handel();
+        });
+      }
+
+      setTimeout(function(){
+        handel();
+      }, 1000);
+
 		});
+
 	</script>
 </body>
 </html>
